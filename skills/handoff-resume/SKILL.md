@@ -29,11 +29,13 @@ Two failure paths:
 
 List files in `.handoff/` matching the pattern `*.md`. Sort lexicographically and take the **last** entry. Because filenames start with `yyyymmddhhmm`, lex sort = chronological sort.
 
-If multiple files share the same timestamp prefix (collision suffixes `-2`, `-3`), the lex sort still picks the highest suffix correctly because `-2` < `-3` etc.
+If multiple files share the same timestamp prefix (collision suffixes `-2`, `-3`, ...), the lex sort still picks correctly for up to nine collisions per minute. Beyond that the suffix would lex-sort `-10 < -2`, but ten handoffs in one minute is implausible — accept this as a known limit.
 
 ## Step 3 — Read the file
 
-Use the Read tool. Load the entire file. You will need the title, dates, Sections 1, 2, 5, 6, 7, 8 to summarise (Section 3 and 4 are reference detail).
+> **CONTRACT:** the section numbers and headings used below match the 8-section structure produced by `/handoff` (see `skills/handoff/SKILL.md` Step 4). Do **not** edit references to "Section 2", "Section 5", "Section 6" without updating the writer in lockstep.
+
+Use the Read tool. Load the entire file. You will need the title, dates, Sections 1, 2, 5, 6, 7, 8 to summarise. Section 3 (brainstorming choices) often contains the *why* behind the next step — surface it when non-empty. Section 4 (artefacts) is reference detail; cite items only if directly relevant.
 
 ## Step 4 — Show summary and confirm
 
@@ -48,6 +50,7 @@ Sesi sebelumnya selesai:
 Rencana berikutnya:
 {Section 6 Goal + 1-2 of the sub-bullets}
 
+{If Section 3 has rows, add a one-liner: "Konteks pilihan terakhir: {one short summary of the most important Section 3 row}"}
 {If Section 5 has anti-patterns, add: "Catatan penting: {one line}"}
 
 Apakah Anda yakin ingin melanjutkan task handover ini?
