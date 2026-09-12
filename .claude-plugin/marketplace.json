@@ -1,0 +1,22 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "handoff",
+  "description": "Home of the handoff plugin — end a session so the next one can pick it up cold.",
+  "owner": {
+    "name": "mirzaakhena",
+    "url": "https://github.com/mirzaakhena"
+  },
+  "plugins": [
+    {
+      "name": "handoff",
+      "description": "Ends a work session so the next one can continue without today's conversation. Ships the handoff skill and the zero-context auditor agent that tests the handoff instead of trusting it.",
+      "author": {
+        "name": "mirzaakhena"
+      },
+      "category": "productivity",
+      "source": "./",
+      "homepage": "https://github.com/mirzaakhena/handoff",
+      "license": "MIT"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "handoff",
+  "description": "Ends a work session so the next one can continue without today's conversation. Ships the handoff skill and the zero-context auditor agent that tests the handoff instead of trusting it.",
+  "version": "1.0.0",
+  "author": {
+    "name": "mirzaakhena"
+  },
+  "homepage": "https://github.com/mirzaakhena/handoff",
+  "repository": "https://github.com/mirzaakhena/handoff",
+  "license": "MIT",
+  "keywords": ["handoff", "context", "session", "audit", "documentation"]
+}
