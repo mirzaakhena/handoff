@@ -52,6 +52,39 @@ is enforced rather than requested, because an auditor that fixes what it finds
 has destroyed the finding: the whole value of the run is that the state it saw
 is the state the next session will see.
 
+## Before the notes: is the direction real?
+
+The skill runs a clarity check first, and assumes the direction is unclear
+until three things hold: you can state the next step in one sentence without
+hedging, you can cite the file or branch or spec it lives in, and **a human
+chose it**. Your own inference does not count — "they probably want X next" is
+precisely the invented bridge the rest of this refuses to author.
+
+Fail any one and it brainstorms with you before writing a line. This is the one
+check the auditor cannot perform for you: an auditor tests whether what you
+wrote is followable, and has no way of knowing the direction was never chosen.
+
+## What it makes sure is written down
+
+Git remembers what was committed. The conversation remembers everything else,
+and the conversation is what disappears tonight:
+
+- **Mid-flight state** — which file is half-edited and how far it got, what is
+  uncommitted and why, the last hypothesis you were testing and what you had
+  ruled out. `git status` shows changed files, not what you were doing to them.
+- **Blockers with the reason they block**, split between what needs a human
+  decision and what waits on other work. The next session can act on the first
+  and only schedule around the second.
+- **References with when to read them** — at the start, or only under a named
+  condition. Never restating the reference's content, because the copy and the
+  original will disagree and the reader cannot tell which is current.
+- **Position in a plan, never a copy of it.** Two checklists means one of them
+  is already going stale.
+
+And before any of that: the project's entry point gets updated first. A handoff
+delivered next to a README this session's own work made wrong is a defective
+handoff, however good the notes beside it are.
+
 ## Installation
 
 Inside Claude Code:
@@ -106,6 +139,9 @@ makes you believe you handed off.
   nowhere else. A second copy would drift, and the drift would be invisible.
 - **Report contradictions unresolved.** Never author a bridge you did not
   verify — that adds a new falsehood on top of an old one, and it looks settled.
+- **Direction is chosen, not inferred.** A next step no human picked still
+  reads as an instruction to whoever comes next, and gets obeyed rather than
+  questioned.
 - **The control must not know it is a control.** When the stakes are high, the
   strongest signal is a plain agent given real work to plan, not an auditor
   answering questions. An agent that knows it is a test performs like one.
@@ -119,6 +155,19 @@ makes you believe you handed off.
   anything.
 - **No dependency on any ticket system.** It works against whatever the project
   already uses to record state, including nothing.
+
+## Lineage
+
+An earlier version of this repo was a `/handoff` + `/handoff-resume` pair that
+wrote timestamped files into `.handoff/`. Its clarity check survives here
+almost intact. A second, much more elaborate version — bot-to-bot relay with
+ACK protocol and session self-reset — lives on in a private fleet setup; the
+mid-flight/blocker/reference discipline above is lifted from it.
+
+What did not survive from either: the numbered section template. Two skills
+locked together by "Section 5" drift apart silently, and a form that is filled
+in completely *feels* finished whether or not it is true. The content those
+templates were reaching for is kept; the form is not.
 
 ## License
 

@@ -24,6 +24,38 @@ NO HANDOFF IS DONE UNTIL A ZERO-CONTEXT AGENT HAS BEEN RUN AGAINST IT
 
 Not "I wrote thorough notes." Not "the docs look complete." Run the audit.
 
+## First: is the next step real, or are you inventing one?
+
+A handoff pointing somewhere nobody decided is worse than one admitting it does
+not know. The next session reads direction as instruction, and spends its first
+hour on work you never chose.
+
+**Assume the direction is unclear.** It is clear only when all three hold:
+
+1. **You can state the next step in one sentence without hedging.** "Implement
+   option B for the importer" passes. "Continue working on the importer" and
+   "address the open items" do not.
+2. **You can cite the artefact it lives in** — a file, a branch, a spec, a named
+   failing test. Something the next session can open.
+3. **A human confirmed it**, by choosing it, approving the spec that contains
+   it, or instructing it directly. Work documented in the plan this session was
+   executing counts too. **Your own inference does not** — "they probably want X
+   next" is exactly the bridge you are forbidden to author.
+
+Miss any one and you brainstorm with the human before writing anything. One
+question at a time, options where you can offer them, your recommendation
+first.
+
+Clarity fails more often than it feels like it does. Watch for: a session that
+was exploratory with no decision recorded; several plausible next steps with no
+choice made between them; stopping mid-edit or mid-debug with the breakage
+uncharacterised; a long debug whose fix the human has not confirmed; work
+blocked on something external; or simply your own unease about what comes next.
+
+**The audit cannot catch this one.** An auditor reads what you wrote and tests
+whether it is followable — it has no way of knowing the direction was never
+chosen. This check is yours alone.
+
 ## Where the handoff lives
 
 **If the project already has a place where state lives — a ticket board, an
@@ -38,28 +70,73 @@ makes you believe you handed off.
 Test for this: *starting only from the project's documented entry point, is
 every artefact I produced reachable?* If not, it does not exist.
 
+**Update that entry point before writing anything else.** The README a newcomer
+opens first, the board's own index, the sub-folder README covering the code you
+touched: if this session's work changed what those describe, they are wrong
+now. A handoff delivered alongside a stale entry point is a defective handoff,
+however good the notes beside it are.
+
 ## Steps
 
-1. **Spend your time on what an auditor cannot do.** Do not hand-reconcile
-   every number yourself — the auditor will measure them, and doing it first
-   means running the same suite two or three times for one figure. Your time
-   goes to what needs project knowledge: does every cross-reference still
-   resolve, is anything recorded only in the conversation, which notes describe
-   a decision that has since reversed.
+1. **Check the direction is real.** The three signals above. If any is missing,
+   brainstorm with the human before writing a single line.
 
-2. **Fix what is stale or contradictory.** Especially: statements that read
-   like instructions but describe a decision already reversed. Those cause the
-   most expensive damage, because the next session obeys them.
+2. **Update the entry point,** and any sub-folder docs this session's work made
+   wrong. This comes before the notes, not after.
 
-3. **Audit with the zero-context `handoff-auditor` subagent.** See below.
+3. **Spend your remaining time on what an auditor cannot do.** Do not
+   hand-reconcile every number yourself — the auditor will measure them, and
+   doing it first means running the same suite two or three times for one
+   figure. Your time goes to what needs project knowledge: does every
+   cross-reference still resolve, is anything recorded only in the conversation,
+   which notes describe a decision that has since reversed.
 
-4. **Fix the findings.**
+4. **Fix what is stale or contradictory.** Especially: statements that read like
+   instructions but describe a decision already reversed. Those cause the most
+   expensive damage, because the next session obeys them.
 
-5. **Re-run the audit, pointed at what you changed.** Same agent, same
-   questions, but name the area you touched — otherwise the re-run may never look there
-   and confirms nothing. An audit that stayed in the ticket folder cannot
-   verify a fix you made in the docs folder. You have not verified a fix until
-   an audit that would have caught it comes back clean.
+5. **Audit with the zero-context `handoff-auditor` subagent.** See below.
+
+6. **Fix the findings.**
+
+7. **Re-run the audit, pointed at what you changed.** Same agent, same
+   questions, but name the area you touched — otherwise the re-run may never
+   look there and confirms nothing. An audit that stayed in the ticket folder
+   cannot verify a fix you made in the docs folder. You have not verified a fix
+   until an audit that would have caught it comes back clean.
+
+## What is most easily lost
+
+Git remembers what was committed. The conversation remembers everything else,
+and the conversation is what disappears tonight. Wherever this project records
+state, make sure these four are actually in it.
+
+**Mid-flight state.** The most perishable thing there is: which file is
+half-edited and how far it got, what is uncommitted and why, the last
+hypothesis you were testing and what you had already ruled out. Nothing else
+records this — `git status` shows changed files, not what you were in the
+middle of doing to them. If you stopped at a clean point, say so explicitly;
+silence reads the same as forgetting.
+
+**Blockers, with the reason they block.** "Waiting on review" is a status.
+"Waiting on review, and the migration cannot be written until the schema in
+that PR settles" is a blocker. Separate what needs a human decision from what
+waits on other work: the next session can act on the first and can only
+schedule around the second.
+
+**References, with when to read them.** Point at the spec, the plan, the
+playbook — and say when each matters: at the start, or only under a specific
+condition. Two rules. Never restate a reference's content where you point at
+it; the copy and the original will disagree, and the reader has no way to tell
+which is current. And never leave a pointer without its condition — one without
+it gets read either always or never, and both are wrong.
+
+**Position, not a copy.** Where a plan or board already holds the checklist,
+that is the source of truth; record where the work stands in it. Copying the
+checklist across gives you two lists, and the copy starts going stale
+immediately. For the same reason, never edit an earlier record so it agrees
+with today — supersede it instead. The trail of a reversed decision is what
+stops the next session from quietly reversing it back.
 
 ## The audit
 
@@ -110,8 +187,10 @@ Observed in baseline testing, in order of damage:
 | Failure | Why it happens | Counter |
 |---|---|---|
 | **Inventing a reconciliation** for two things that disagree | A tidy explanation feels like resolution | Report the contradiction unresolved. Never author a bridge you did not verify — you are adding a *new* falsehood to fix an old one |
+| **A next step nobody chose** | It rounds the handoff out and feels helpful | The three clarity signals. An invented direction is obeyed, not questioned |
 | **Asserting technical claims from reasoning** | It sounds obviously right | Measure it, then write it. "Should work" is not a finding |
 | **Handoff artefacts nobody can reach** | You know the path; the next session doesn't | Reachable from the documented entry point, or it does not exist |
+| **Mid-flight state left in the conversation** | It feels too temporary to write down | It is the one thing no file records. Write it or lose it |
 | **Numbers disagreeing across your own artefacts** | Written at different moments | One number, one source. Re-derive rather than recall |
 | **Work recorded in the conversation, not the repo** | You told the human, so it feels recorded | The conversation is gone tomorrow. If it is not in a file, it did not happen |
 
@@ -121,6 +200,7 @@ Observed in baseline testing, in order of damage:
 |--------|---------|
 | "My notes are thorough" | Thorough to you. You have the context that makes them readable. |
 | "I'll just re-read them myself" | You will recognise, not comprehend. Recognition proves nothing. |
+| "The direction is obvious from what we did" | Obvious to you, and unverifiable by anyone else. If a human did not choose it, brainstorm. |
 | "The audit takes too long" | It genuinely costs — a run and a re-run is minutes of waiting and six figures of subagent tokens, and you cannot work meanwhile because the auditor is reading the files you would touch. Spend it anyway when work is mid-flight: the alternative is the next session redoing what was already finished. Skip it for a short session with nothing open. |
 | "I already told the human" | The conversation does not survive. Only files do. |
 | "I fixed the findings, that's enough" | Unverified fixes. Re-run the audit. |
@@ -139,7 +219,12 @@ is that your own work is unreachable, saying so inside that work changes nothing
 ## Red flags
 
 - About to write `HANDOFF.md` next to a board that already tracks state
+- Writing a next step no human actually chose
+- Handing off with a README this session's own work made wrong
 - Explaining away a contradiction instead of reporting it
+- A reference pointed at with no indication of when to read it
+- Copying a plan's checklist into the handoff instead of recording position
+- Editing an earlier record so it agrees with today
 - Writing a technical claim you have not run
 - "The next session will figure it out from the code"
 - Fixed the audit's findings, did not re-run it
