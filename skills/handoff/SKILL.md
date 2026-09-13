@@ -24,7 +24,39 @@ NO HANDOFF IS DONE UNTIL A ZERO-CONTEXT AGENT HAS BEEN RUN AGAINST IT
 
 Not "I wrote thorough notes." Not "the docs look complete." Run the audit.
 
-## First: is the next step real, or are you inventing one?
+## Before you start: a handoff is not project work
+
+A handoff closes a session; it is not a unit of work inside the project. Treat
+it as one and two machines end up grading the same file by different rules.
+Three rules follow from that, and all three are load-bearing.
+
+**The board must be quiet before you start.** If the project tracks work in
+columns — something like *in progress* and *awaiting review* — both must be
+empty before a handoff begins. Work under review is work still changing, and
+notes written over moving state describe a repo that no longer exists by the
+time anyone reads them. If either column holds anything, stop: tell the human
+what is still open and offer to close it out first. Do not start writing while
+a review is running.
+
+**The write-up never becomes a ticket.** Updating the board *is* the handoff —
+correcting statuses, editing tickets, recording position. But the account of the
+session is not itself project work, and filing it as a ticket hands it to the
+wrong checker.
+
+**The handoff's auditor and the board's reviewer never mix.** A handoff is
+judged by `handoff-auditor` and by nothing else. That auditor reads the board,
+because that is where state lives, but it reviews no tickets — and no ticket
+reviewer passes judgement on the handoff.
+
+This has been paid for once already. A handoff began with tickets still sitting
+in review, and the `HANDOFF.md` it produced was itself filed as a ticket. The
+loop: handoff edits the file → its auditor finds a flaw → the fix lands inside a
+ticket under review → the board's reviewer re-checks against the file that just
+changed → new findings → round again. Two checkers, one file, different rules,
+each one's change making the other's verdict stale. Three review rounds for a
+single documentation ticket, and hours gone.
+
+## Is the next step real, or are you inventing one?
 
 A handoff pointing somewhere nobody decided is worse than one admitting it does
 not know. The next session reads direction as instruction, and spends its first
@@ -78,28 +110,31 @@ however good the notes beside it are.
 
 ## Steps
 
-1. **Check the direction is real.** The three signals above. If any is missing,
+1. **Check the board is quiet.** Nothing in progress, nothing awaiting review.
+   If something is, that is a conversation with the human, not a handoff.
+
+2. **Check the direction is real.** The three signals above. If any is missing,
    brainstorm with the human before writing a single line.
 
-2. **Update the entry point,** and any sub-folder docs this session's work made
+3. **Update the entry point,** and any sub-folder docs this session's work made
    wrong. This comes before the notes, not after.
 
-3. **Spend your remaining time on what an auditor cannot do.** Do not
+4. **Spend your remaining time on what an auditor cannot do.** Do not
    hand-reconcile every number yourself — the auditor will measure them, and
    doing it first means running the same suite two or three times for one
    figure. Your time goes to what needs project knowledge: does every
    cross-reference still resolve, is anything recorded only in the conversation,
    which notes describe a decision that has since reversed.
 
-4. **Fix what is stale or contradictory.** Especially: statements that read like
+5. **Fix what is stale or contradictory.** Especially: statements that read like
    instructions but describe a decision already reversed. Those cause the most
    expensive damage, because the next session obeys them.
 
-5. **Audit with the zero-context `handoff-auditor` subagent.** See below.
+6. **Audit with the zero-context `handoff-auditor` subagent.** See below.
 
-6. **Fix the findings.**
+7. **Fix the findings.**
 
-7. **Re-run the audit, pointed at what you changed.** Same agent, same
+8. **Re-run the audit, pointed at what you changed.** Same agent, same
    questions, but name the area you touched — otherwise the re-run may never
    look there and confirms nothing. An audit that stayed in the ticket folder
    cannot verify a fix you made in the docs folder. You have not verified a fix
@@ -198,6 +233,7 @@ Observed in baseline testing, in order of damage:
 
 | Excuse | Reality |
 |--------|---------|
+| "The review is nearly done, I can start the handoff now" | Nearly done is still changing. You would be describing a repo that stops being true while you type. |
 | "My notes are thorough" | Thorough to you. You have the context that makes them readable. |
 | "I'll just re-read them myself" | You will recognise, not comprehend. Recognition proves nothing. |
 | "The direction is obvious from what we did" | Obvious to you, and unverifiable by anyone else. If a human did not choose it, brainstorm. |
@@ -218,6 +254,8 @@ is that your own work is unreachable, saying so inside that work changes nothing
 
 ## Red flags
 
+- Starting a handoff while a ticket is still sitting in review
+- Filing the handoff write-up itself as a ticket
 - About to write `HANDOFF.md` next to a board that already tracks state
 - Writing a next step no human actually chose
 - Handing off with a README this session's own work made wrong
